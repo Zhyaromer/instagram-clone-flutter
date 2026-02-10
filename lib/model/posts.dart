@@ -1,0 +1,700 @@
+import 'package:instagram/model/imageposts.dart';
+import 'package:instagram/model/tags.dart';
+
+class Posts {
+  final String id;
+  final String username;
+  final String pageCover;
+  final List<Imageposts> images;
+  final int likes;
+  final int comments;
+  final int reposts;
+  final int share;
+  final String caption;
+  final List<Tags> tags;
+  final String timeAgo;
+  bool isSuggested;
+  bool haveStory;
+  bool isFollowed;
+  bool isSaved;
+  bool isLiked;
+  bool isReposted;
+  String music;
+
+  Posts({
+    required this.id,
+    required this.username,
+    required this.pageCover,
+    required this.images,
+    required this.likes,
+    required this.comments,
+    required this.reposts,
+    required this.share,
+    required this.caption,
+    required this.tags,
+    required this.timeAgo,
+    this.isSuggested = false,
+    this.isFollowed = false,
+    this.haveStory = false,
+    this.isSaved = false,
+    this.isLiked = false,
+    this.isReposted = false,
+    this.music = '',
+  });
+}
+
+List<Posts> mockPosts = [
+  // 1-5: Nature & Outdoors
+  Posts(
+    id: "1",
+    username: "mountain_explorer",
+    pageCover: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+    images: [
+      Imageposts(
+        id: 101,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b",
+      ),
+    ],
+    likes: 1250,
+    comments: 45,
+    reposts: 12,
+    share: 89,
+    caption:
+        "What looks like “gibberish” in the Epstein files is Base64, a format used in MIME emails to embed attachments like PDFs and images.Digital forensics enthusiasts have already shown some of this data is recoverable. One of them, Mahmoud Al-Qudsi (mqudsi on X), has been documenting the process in real time.",
+    tags: [Tags(id: 1, index: 0, tag: "hiking")],
+    timeAgo: "2 hours ago",
+    haveStory: true,
+    isLiked: true,
+    isReposted: true,
+    music: "Alpine Dreams - Nature Audio",
+    isFollowed: true,
+  ),
+  Posts(
+    id: "2",
+    username: "ocean_breeze",
+    pageCover: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    images: [
+      Imageposts(
+        id: 102,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1519046904884-53103b34b206",
+      ),
+    ],
+    likes: 840,
+    comments: 22,
+    reposts: 5,
+    share: 30,
+    caption: "Salt in the air.",
+    tags: [Tags(id: 2, index: 0, tag: "beach")],
+    timeAgo: "5 hours ago",
+    isLiked: true,
+    music: "Waves - LoFi Chill",
+  ),
+  Posts(
+    id: "3",
+    username: "forest_spirit",
+    pageCover: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
+    images: [
+      Imageposts(
+        id: 103,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1448375240586-882707db888b",
+      ),
+    ],
+    likes: 2100,
+    comments: 110,
+    reposts: 40,
+    share: 250,
+    caption: "Deep in the woods.",
+    tags: [Tags(id: 3, index: 0, tag: "nature")],
+    timeAgo: "10 hours ago",
+    isSuggested: true,
+  ),
+  Posts(
+    id: "4",
+    username: "desert_rider",
+    pageCover: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0",
+    images: [
+      Imageposts(
+        id: 104,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1445964047600-cdbdb873673d",
+      ),
+    ],
+    likes: 670,
+    comments: 30,
+    reposts: 8,
+    share: 45,
+    caption: "Endless dunes.",
+    tags: [Tags(id: 4, index: 0, tag: "desert")],
+    timeAgo: "1 day ago",
+    haveStory: true,
+    isSaved: true,
+  ),
+  Posts(
+    id: "5",
+    username: "sky_high",
+    pageCover: "https://images.unsplash.com/photo-1470252649358-96957c053e9a",
+    images: [
+      Imageposts(
+        id: 105,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1501183007986-d0d080b147f9",
+      ),
+    ],
+    likes: 3200,
+    comments: 150,
+    reposts: 90,
+    share: 400,
+    caption: "Golden hour glow.",
+    tags: [Tags(id: 5, index: 0, tag: "sunset")],
+    timeAgo: "3 hours ago",
+    music: "Golden - Harry Styles",
+  ),
+
+  // 6-10: Urban & Architecture
+  Posts(
+    id: "6",
+    username: "city_vibes",
+    pageCover: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000",
+    images: [
+      Imageposts(
+        id: 106,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df",
+      ),
+    ],
+    likes: 1100,
+    comments: 85,
+    reposts: 20,
+    share: 110,
+    caption: "Midnight in NYC.",
+    tags: [Tags(id: 6, index: 0, tag: "city")],
+    timeAgo: "1 hour ago",
+    haveStory: true,
+    isFollowed: true,
+  ),
+  Posts(
+    id: "7",
+    username: "arc_design",
+    pageCover: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
+    images: [
+      Imageposts(
+        id: 107,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1449156001437-3a144f712217",
+      ),
+    ],
+    likes: 450,
+    comments: 12,
+    reposts: 30,
+    share: 22,
+    caption: "Geometric perfection.",
+    tags: [Tags(id: 7, index: 0, tag: "design")],
+    timeAgo: "6 hours ago",
+    isSuggested: true,
+  ),
+  Posts(
+    id: "8",
+    username: "street_soul",
+    pageCover: "https://images.unsplash.com/photo-1514565131-fce0801e5785",
+    images: [
+      Imageposts(
+        id: 108,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+      ),
+    ],
+    likes: 900,
+    comments: 40,
+    reposts: 15,
+    share: 60,
+    caption: "Parisian alleys.",
+    tags: [Tags(id: 8, index: 0, tag: "paris")],
+    timeAgo: "8 hours ago",
+    isSaved: true,
+    music: "La Vie En Rose",
+  ),
+  Posts(
+    id: "9",
+    username: "tokyo_night",
+    pageCover: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf",
+    images: [
+      Imageposts(
+        id: 109,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1503899036084-c55cdd92da26",
+      ),
+    ],
+    likes: 5400,
+    comments: 300,
+    reposts: 120,
+    share: 800,
+    caption: "Neon dreams.",
+    tags: [Tags(id: 9, index: 0, tag: "cyberpunk")],
+    timeAgo: "12 hours ago",
+    isLiked: true,
+  ),
+  Posts(
+    id: "10",
+    username: "london_eye",
+    pageCover: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad",
+    images: [
+      Imageposts(
+        id: 110,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1486299267070-83823f5448dd",
+      ),
+    ],
+    likes: 720,
+    comments: 25,
+    reposts: 10,
+    share: 55,
+    caption: "Foggy morning.",
+    tags: [Tags(id: 10, index: 0, tag: "london")],
+    timeAgo: "15 hours ago",
+    haveStory: true,
+  ),
+
+  // 11-15: Lifestyle & Fashion
+  Posts(
+    id: "11",
+    username: "fashion_week",
+    pageCover: "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+    images: [
+      Imageposts(
+        id: 111,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d",
+      ),
+    ],
+    likes: 1800,
+    comments: 90,
+    reposts: 25,
+    share: 150,
+    caption: "Minimalist fits.",
+    tags: [Tags(id: 11, index: 0, tag: "style")],
+    timeAgo: "4 hours ago",
+    isFollowed: true,
+    music: "Vogue - Madonna",
+  ),
+  Posts(
+    id: "12",
+    username: "cafe_culture",
+    pageCover: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+    images: [
+      Imageposts(
+        id: 112,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
+      ),
+    ],
+    likes: 340,
+    comments: 15,
+    reposts: 2,
+    share: 18,
+    caption: "Latte art goals.",
+    tags: [Tags(id: 12, index: 0, tag: "coffee")],
+    timeAgo: "7 hours ago",
+    haveStory: true,
+    isSuggested: true,
+  ),
+  Posts(
+    id: "13",
+    username: "fitness_journey",
+    pageCover: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438",
+    images: [
+      Imageposts(
+        id: 113,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1534438327276-14e5300c3a48",
+      ),
+    ],
+    likes: 670,
+    comments: 34,
+    reposts: 5,
+    share: 40,
+    caption: "Consistent work.",
+    tags: [Tags(id: 13, index: 0, tag: "gym")],
+    timeAgo: "9 hours ago",
+    music: "Unstoppable - Sia",
+  ),
+  Posts(
+    id: "14",
+    username: "book_worm",
+    pageCover: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d",
+    images: [
+      Imageposts(
+        id: 114,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1512820790803-83ca734da794",
+      ),
+    ],
+    likes: 210,
+    comments: 55,
+    reposts: 10,
+    share: 30,
+    caption: "Currently reading...",
+    tags: [Tags(id: 14, index: 0, tag: "books")],
+    timeAgo: "11 hours ago",
+    isSaved: true,
+  ),
+  Posts(
+    id: "15",
+    username: "gamer_pro",
+    pageCover: "https://images.unsplash.com/photo-1542751371-adc38448a05e",
+    images: [
+      Imageposts(
+        id: 115,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1511512578047-dfb367046420",
+      ),
+    ],
+    likes: 4200,
+    comments: 180,
+    reposts: 300,
+    share: 500,
+    caption: "The setup.",
+    tags: [Tags(id: 15, index: 0, tag: "gaming")],
+    timeAgo: "20 hours ago",
+    isLiked: true,
+  ),
+
+  // 16-20: Food & Drink
+  Posts(
+    id: "16",
+    username: "chef_table",
+    pageCover: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+    images: [
+      Imageposts(
+        id: 116,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1473093226795-af9932fe5856",
+      ),
+    ],
+    likes: 1300,
+    comments: 60,
+    reposts: 40,
+    share: 120,
+    caption: "Homemade pasta.",
+    tags: [Tags(id: 16, index: 0, tag: "food")],
+    timeAgo: "3 hours ago",
+    haveStory: true,
+    music: "Italian Dinner - Jazz",
+  ),
+  Posts(
+    id: "17",
+    username: "sweet_bites",
+    pageCover: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543",
+    images: [
+      Imageposts(
+        id: 117,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1484723088339-323ec287900b",
+      ),
+    ],
+    likes: 890,
+    comments: 33,
+    reposts: 12,
+    share: 50,
+    caption: "Pancakes or waffles?",
+    tags: [Tags(id: 17, index: 0, tag: "brunch")],
+    timeAgo: "5 hours ago",
+    isSuggested: true,
+  ),
+  Posts(
+    id: "18",
+    username: "pizza_lover",
+    pageCover: "https://images.unsplash.com/photo-1513104890138-7c749659a591",
+    images: [
+      Imageposts(
+        id: 118,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e",
+      ),
+    ],
+    likes: 2500,
+    comments: 100,
+    reposts: 60,
+    share: 200,
+    caption: "Cheesy goodness.",
+    tags: [Tags(id: 18, index: 0, tag: "pizza")],
+    timeAgo: "8 hours ago",
+    isFollowed: true,
+  ),
+  Posts(
+    id: "19",
+    username: "green_eats",
+    pageCover: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
+    images: [
+      Imageposts(
+        id: 119,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
+      ),
+    ],
+    likes: 430,
+    comments: 18,
+    reposts: 5,
+    share: 20,
+    caption: "Fresh salad.",
+    tags: [Tags(id: 19, index: 0, tag: "vegan")],
+    timeAgo: "13 hours ago",
+    isSaved: true,
+  ),
+  Posts(
+    id: "20",
+    username: "barista_boy",
+    pageCover: "https://images.unsplash.com/photo-1442512595331-e89e73853f31",
+    images: [
+      Imageposts(
+        id: 120,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1497933321162-0362a208ad44",
+      ),
+    ],
+    likes: 620,
+    comments: 22,
+    reposts: 8,
+    share: 35,
+    caption: "Morning brew.",
+    tags: [Tags(id: 20, index: 0, tag: "espresso")],
+    timeAgo: "18 hours ago",
+    music: "Coffee Shop LoFi",
+  ),
+
+  // 21-25: Animals & Tech
+  Posts(
+    id: "21",
+    username: "doggo_hub",
+    pageCover: "https://images.unsplash.com/photo-1517849845537-4d257902454a",
+    images: [
+      Imageposts(
+        id: 121,
+        index: 0,
+        UrlImage: "https://images.unsplash.com/photo-1543466835-00a7907e9de1",
+      ),
+    ],
+    likes: 8500,
+    comments: 400,
+    reposts: 900,
+    share: 2000,
+    caption: "The goodest boy.",
+    tags: [Tags(id: 21, index: 0, tag: "dogs")],
+    timeAgo: "2 hours ago",
+    haveStory: true,
+    isLiked: true,
+  ),
+  Posts(
+    id: "22",
+    username: "cat_nap",
+    pageCover: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
+    images: [
+      Imageposts(
+        id: 122,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1495360010541-f48722b34f7d",
+      ),
+    ],
+    likes: 3100,
+    comments: 120,
+    reposts: 50,
+    share: 180,
+    caption: "Lazy Sunday.",
+    tags: [Tags(id: 22, index: 0, tag: "cats")],
+    timeAgo: "6 hours ago",
+    isFollowed: true,
+  ),
+  Posts(
+    id: "23",
+    username: "dev_life",
+    pageCover: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    images: [
+      Imageposts(
+        id: 123,
+        index: 0,
+        UrlImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
+      ),
+    ],
+    likes: 1400,
+    comments: 88,
+    reposts: 70,
+    share: 130,
+    caption: "Clean code.",
+    tags: [Tags(id: 23, index: 0, tag: "flutter")],
+    timeAgo: "9 hours ago",
+    isSuggested: true,
+    music: "Synthwave Beats",
+  ),
+  Posts(
+    id: "24",
+    username: "setup_wars",
+    pageCover: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf",
+    images: [
+      Imageposts(
+        id: 124,
+        index: 0,
+        UrlImage: "https://images.unsplash.com/photo-1550745165-9bc0b252726f",
+      ),
+    ],
+    likes: 2700,
+    comments: 140,
+    reposts: 95,
+    share: 210,
+    caption: "Retro vibes.",
+    tags: [Tags(id: 24, index: 0, tag: "setup")],
+    timeAgo: "14 hours ago",
+    isSaved: true,
+  ),
+  Posts(
+    id: "25",
+    username: "space_geek",
+    pageCover: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa",
+    images: [
+      Imageposts(
+        id: 125,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1451187580459-43490279c0fa",
+      ),
+    ],
+    likes: 9200,
+    comments: 550,
+    reposts: 1200,
+    share: 3000,
+    caption: "View from above.",
+    tags: [Tags(id: 25, index: 0, tag: "nasa")],
+    timeAgo: "1 day ago",
+    isLiked: true,
+  ),
+
+  // 26-30: Creative & Misc
+  Posts(
+    id: "26",
+    username: "art_gallery",
+    pageCover: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b",
+    images: [
+      Imageposts(
+        id: 126,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1513364776144-60967b0f800f",
+      ),
+    ],
+    likes: 740,
+    comments: 45,
+    reposts: 20,
+    share: 55,
+    caption: "Ink and paper.",
+    tags: [Tags(id: 26, index: 0, tag: "sketching")],
+    timeAgo: "4 hours ago",
+    haveStory: true,
+    music: "Acoustic Guitar",
+  ),
+  Posts(
+    id: "27",
+    username: "minimal_interiors",
+    pageCover: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+    images: [
+      Imageposts(
+        id: 127,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1513694203232-719a280e022f",
+      ),
+    ],
+    likes: 1200,
+    comments: 50,
+    reposts: 35,
+    share: 90,
+    caption: "Living room inspo.",
+    tags: [Tags(id: 27, index: 0, tag: "interior")],
+    timeAgo: "7 hours ago",
+    isSuggested: true,
+  ),
+  Posts(
+    id: "28",
+    username: "vintage_auto",
+    pageCover: "https://images.unsplash.com/photo-1503376780353-7e6692767b70",
+    images: [
+      Imageposts(
+        id: 128,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1494976388531-d1058494cdd8",
+      ),
+    ],
+    likes: 2900,
+    comments: 130,
+    reposts: 110,
+    share: 400,
+    caption: "Old school cool.",
+    tags: [Tags(id: 28, index: 0, tag: "classic")],
+    timeAgo: "10 hours ago",
+    haveStory: true,
+  ),
+  Posts(
+    id: "29",
+    username: "vinyl_junkie",
+    pageCover: "https://images.unsplash.com/photo-1514525253361-bee8718a303b",
+    images: [
+      Imageposts(
+        id: 129,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1470225620780-dba8ba36b745",
+      ),
+    ],
+    likes: 560,
+    comments: 28,
+    reposts: 15,
+    share: 45,
+    caption: "Spinning tonight.",
+    tags: [Tags(id: 29, index: 0, tag: "vinyl")],
+    timeAgo: "16 hours ago",
+    music: "Rumours - Fleetwood Mac",
+  ),
+  Posts(
+    id: "30",
+    username: "winter_tale",
+    pageCover: "https://images.unsplash.com/photo-1477601263430-59526ee6062f",
+    images: [
+      Imageposts(
+        id: 130,
+        index: 0,
+        UrlImage:
+            "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22",
+      ),
+    ],
+    likes: 1100,
+    comments: 40,
+    reposts: 18,
+    share: 70,
+    caption: "First snow.",
+    tags: [Tags(id: 30, index: 0, tag: "winter")],
+    timeAgo: "1 day ago",
+    isLiked: true,
+  ),
+];
