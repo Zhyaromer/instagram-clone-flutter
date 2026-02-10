@@ -82,6 +82,18 @@ List<Posts> mockPosts = [
         UrlImage:
             "https://images.unsplash.com/photo-1519046904884-53103b34b206",
       ),
+      Imageposts(
+        id: 102,
+        index: 1,
+        UrlImage:
+            "https://images.unsplash.com/photo-1448375240586-882707db888b",
+      ),
+      Imageposts(
+        id: 102,
+        index: 2,
+        UrlImage:
+            "https://images.unsplash.com/photo-1501183007986-d0d080b147f9",
+      ),
     ],
     likes: 840,
     comments: 22,

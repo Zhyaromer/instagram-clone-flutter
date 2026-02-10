@@ -181,6 +181,7 @@ class _HomeState extends State<Home> {
               itemCount: mockPosts.length,
               itemBuilder: (context, index) {
                 final post = mockPosts[index];
+                final images = post.images;
                 return Container(
                   child: Column(
                     children: [
@@ -275,17 +276,48 @@ class _HomeState extends State<Home> {
 
                       const SizedBox(height: 8),
 
-                      Container(
+                      SizedBox(
                         height: 300,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
-                            ),
-                            fit: BoxFit.cover,
-                          ),
+                        child: PageView.builder(
+                          itemCount: post.images.length,
+                          itemBuilder: (context, index) {
+                            final e = post.images[index];
+                            return Stack(
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[900],
+                                    image: DecorationImage(
+                                      image: NetworkImage(e.UrlImage),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+
+                                if (images.length > 1) ...[
+                                  Positioned(
+                                    top: 10,
+                                    right: 10,
+                                    child: Container(
+                                      height: 30,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[800],
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '${index + 1}/${images.length}',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            );
+                          },
                         ),
                       ),
 
