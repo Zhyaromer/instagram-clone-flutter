@@ -15,7 +15,7 @@ class Stories {
 List<Stories> storyData = [
   Stories(
     id: "1",
-    username: "alex_travels",
+    username: "przhekareem",
     imageUrl:
         "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400",
     storieUrl:

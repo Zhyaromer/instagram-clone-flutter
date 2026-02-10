@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:instagram/model/stories.dart';
 
+final List<Color> instagramGradient = [
+  Color(0xFFFEDA75), // yellow
+  Color(0xFFFA7E1E), // orange
+  Color(0xFFD62976), // pink
+  Color(0xFF962FBF), // purple
+  Color(0xFF4F5BD5), // blue
+];
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -32,67 +40,140 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Expanded(
-            child: SizedBox(
-              height: 200,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    final story = storyData[index];
-                    return Container(
-                      padding: EdgeInsets.all(4),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            height: 90,
-                            width: 90,
-                            decoration: BoxDecoration(
-                              border: BoxBorder.all(
-                                color: Colors.orange,
-                                width: 3,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 115,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: storyData.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return Container(
+                          padding: EdgeInsets.all(4),
+                          child: Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(3),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(3),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.transparent,
+                                      ),
+                                      child: Container(
+                                        height: 75,
+                                        width: 75,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              'https://picsum.photos/200',
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(45),
-                              ),
-                            ),
-                            child: Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                image: DecorationImage(
-                                  image: NetworkImage(story.imageUrl),
-                                  fit: BoxFit.cover,
-                                  onError: (exception, stackTrace) {
-                                    Container(color: Colors.red);
-                                  },
+                              const SizedBox(height: 3),
+                              Text(
+                                'Your Story',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-
-                          const SizedBox(height: 5),
-
-                          Text(
-                            story.username,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: Colors.white, fontSize: 13),
+                        );
+                      } else {
+                        final story = storyData[index - 1];
+                        return Container(
+                          padding: EdgeInsets.all(4),
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: LinearGradient(
+                                    colors: instagramGradient,
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.all(3),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.black,
+                                  ),
+                                  child: Container(
+                                    height: 75,
+                                    width: 75,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: NetworkImage(story.imageUrl),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                story.username.length > 15
+                                    ? "${story.username.substring(0, 12)}..."
+                                    : story.username,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                  itemCount: storyData.length,
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
+
+          const SizedBox(height: 10),
         ],
       ),
     );
