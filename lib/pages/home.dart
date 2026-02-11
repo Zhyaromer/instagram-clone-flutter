@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/model/posts.dart';
 import 'package:instagram/model/stories.dart';
@@ -21,12 +20,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // ignore: unused_field
-  final PageController _pageController = PageController();
-
   @override
   void initState() {
     super.initState();
+    storyData.sort((a, b) => (a.isWatched ? 1 : 0) - (b.isWatched ? 1 : 0));
   }
 
   @override
@@ -132,11 +129,14 @@ class _HomeState extends State<Home> {
                                   padding: EdgeInsets.all(3),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    gradient: LinearGradient(
-                                      colors: instagramGradient,
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    ),
+                                    gradient: !story.isWatched
+                                        ? LinearGradient(
+                                            colors: instagramGradient,
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          )
+                                        : null,
+                                    color: story.isWatched ? Colors.grey[600] : Colors.orange,
                                   ),
                                   child: Container(
                                     padding: EdgeInsets.all(3),
