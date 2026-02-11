@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram/model/imageposts.dart';
 import 'package:instagram/model/posts.dart';
 import 'package:instagram/model/stories.dart';
 import 'package:instagram/pages/storyviewr.dart';
@@ -21,6 +22,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final PageController _pageController = PageController();
+  int currentIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -239,9 +243,9 @@ class _HomeState extends State<Home> {
                                       setState(() {
                                         post.isFollowed = !post.isFollowed;
                                       });
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('${post.username} followed')),
-                                      );
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(SnackBar(content: Text('${post.username} followed')));
                                     },
                                     child: Container(
                                       padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
@@ -272,47 +276,7 @@ class _HomeState extends State<Home> {
 
                       const SizedBox(height: 8),
 
-                      SizedBox(
-                        height: 300,
-                        child: PageView.builder(
-                          itemCount: post.images.length,
-                          itemBuilder: (context, index) {
-                            final e = post.images[index];
-                            return Stack(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[900],
-                                    image: DecorationImage(image: NetworkImage(e.UrlImage), fit: BoxFit.cover),
-                                  ),
-                                ),
-
-                                if (images.length > 1) ...[
-                                  Positioned(
-                                    top: 10,
-                                    right: 10,
-                                    child: Container(
-                                      height: 30,
-                                      width: 40,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[800],
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '${index + 1}/${images.length}',
-                                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ],
-                            );
-                          },
-                        ),
-                      ),
+                      PostImages(images: images),
 
                       const SizedBox(height: 15),
 
@@ -426,4 +390,82 @@ Widget postActions(Icon icon, Icon? newIcon, int number, bool state) {
       ),
     ],
   );
+}
+
+class PostImages extends StatefulWidget {
+  final List<Imageposts> images;
+  const PostImages({super.key, required this.images});
+
+  @override
+  State<PostImages> createState() => _PostImagesState();
+}
+
+class _PostImagesState extends State<PostImages> {
+  final PageController _pageController = PageController();
+  int currentIndex = 0; // Each post has its own index
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 300,
+          child: Stack(
+            children: [
+              PageView.builder(
+                controller: _pageController,
+                itemCount: widget.images.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentIndex = index; // Only updates this post
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return Image.network(widget.images[index].UrlImage, fit: BoxFit.cover);
+                },
+              ),
+
+              // Top-right page indicator
+              if (widget.images.length > 1)
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                    height: 30,
+                    width: 45,
+                    decoration: BoxDecoration(color: Colors.grey[800], borderRadius: BorderRadius.circular(15)),
+                    child: Center(
+                      child: Text(
+                        '${currentIndex + 1}/${widget.images.length}',
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+
+        // Instagram-style progress bars
+        if (widget.images.length > 1)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(widget.images.length, (index) {
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: 2),
+                  height: 3,
+                  width: 20,
+                  decoration: BoxDecoration(
+                    color: index == currentIndex ? Colors.white : Colors.grey[700],
+                    borderRadius: BorderRadius.circular(1.5),
+                  ),
+                );
+              }),
+            ),
+          ),
+      ],
+    );
+  }
 }

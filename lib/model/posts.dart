@@ -87,7 +87,11 @@ List<Posts> mockPosts = [
     id: "3",
     username: "forest_spirit",
     pageCover: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
-    images: [Imageposts(id: 103, index: 0, UrlImage: "https://images.unsplash.com/photo-1448375240586-882707db888b")],
+    images: [
+      Imageposts(id: 103, index: 0, UrlImage: "https://images.unsplash.com/photo-1448375240586-882707db888b"),
+      Imageposts(id: 102, index: 1, UrlImage: "https://images.unsplash.com/photo-1448375240586-882707db888b"),
+      Imageposts(id: 102, index: 2, UrlImage: "https://images.unsplash.com/photo-1501183007986-d0d080b147f9"),
+    ],
     likes: 2100,
     comments: 110,
     reposts: 40,
