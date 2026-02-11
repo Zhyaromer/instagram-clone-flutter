@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/model/posts.dart';
 import 'package:instagram/model/stories.dart';
@@ -122,135 +123,174 @@ class _HomeState extends State<Home> {
                                         return Scaffold(
                                           body: Column(
                                             children: [
-                                              Stack(
-                                                children: [
-                                                  Container(
-                                                    width: double.infinity,
-                                                    height: MediaQuery.of(context).size.height * 0.9,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: NetworkImage(story.storieUrl),
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-
-                                                  Positioned(
-                                                    top: 10,
-                                                    left: 10,
-                                                    right: 10,
-                                                    child: Container(
-                                                      height: 3,
-                                                      width: MediaQuery.of(context).size.height,
-                                                      decoration: BoxDecoration(color: Colors.grey[400]),
-                                                      child: ClipRRect(
-                                                        borderRadius: BorderRadiusGeometry.circular(8),
-                                                        child: LinearProgressIndicator(
-                                                          value: 0.1,
-                                                          backgroundColor: Colors.white24,
-                                                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                              Expanded(
+                                                child: Stack(
+                                                  children: [
+                                                    Container(
+                                                      width: double.infinity,
+                                                      height: MediaQuery.of(context).size.height * 0.9,
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: NetworkImage(story.storieUrl),
+                                                          fit: BoxFit.cover,
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
 
-                                                  Positioned(
-                                                    top: 20,
-                                                    left: 10,
-                                                    right: 10,
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            CircleAvatar(
-                                                              backgroundImage: NetworkImage(story.storieUrl),
-                                                            ),
+                                                    Positioned(
+                                                      top: 10,
+                                                      left: 10,
+                                                      right: 10,
+                                                      child: Container(
+                                                        height: 3,
+                                                        width: MediaQuery.of(context).size.height,
+                                                        decoration: BoxDecoration(color: Colors.grey[400]),
+                                                        child: ClipRRect(
+                                                          borderRadius: BorderRadiusGeometry.circular(8),
+                                                          child: LinearProgressIndicator(
+                                                            value: 0.1,
+                                                            backgroundColor: Colors.white24,
+                                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
 
-                                                            const SizedBox(width: 10),
+                                                    Positioned(
+                                                      top: 20,
+                                                      left: 10,
+                                                      right: 10,
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              CircleAvatar(
+                                                                backgroundImage: NetworkImage(story.storieUrl),
+                                                              ),
 
-                                                            Column(
-                                                              mainAxisAlignment: MainAxisAlignment.start,
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                Row(
-                                                                  children: [
-                                                                    Text(
-                                                                      story.username,
-                                                                      style: TextStyle(
-                                                                        color: Colors.white,
-                                                                        fontSize: 12,
-                                                                        fontWeight: FontWeight.bold,
-                                                                      ),
-                                                                    ),
+                                                              const SizedBox(width: 10),
 
-                                                                    const SizedBox(width: 6),
-
-                                                                    if (story.isVerified) ...[
-                                                                      Container(
-                                                                        padding: EdgeInsets.all(2),
-                                                                        decoration: BoxDecoration(
-                                                                          color: Colors.white,
-                                                                          shape: BoxShape.circle,
-                                                                        ),
-                                                                        child: Icon(
-                                                                          Icons.check,
-                                                                          size: 6,
-                                                                          color: Colors.black,
-                                                                          weight: 10,
-                                                                        ),
-                                                                      ),
-                                                                      const SizedBox(width: 10),
-                                                                    ],
-
-                                                                    Text(
-                                                                      story.date,
-                                                                      style: TextStyle(
-                                                                        color: Colors.white.withOpacity(0.7),
-                                                                        fontSize: 12,
-                                                                        fontWeight: FontWeight.w500,
-                                                                        letterSpacing: 0.2,
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-
-                                                                if (story.song != '') ...[
+                                                              Column(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
                                                                   Row(
                                                                     children: [
-                                                                      Icon(Icons.music_note, size: 14),
                                                                       Text(
-                                                                        story.song,
+                                                                        story.username,
                                                                         style: TextStyle(
                                                                           color: Colors.white,
-                                                                          fontSize: 10,
-                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 12,
+                                                                          fontWeight: FontWeight.bold,
                                                                         ),
                                                                       ),
 
-                                                                      Icon(Icons.keyboard_arrow_right, size: 17),
+                                                                      const SizedBox(width: 6),
+
+                                                                      if (story.isVerified) ...[
+                                                                        Container(
+                                                                          padding: EdgeInsets.all(2),
+                                                                          decoration: BoxDecoration(
+                                                                            color: Colors.white,
+                                                                            shape: BoxShape.circle,
+                                                                          ),
+                                                                          child: Icon(
+                                                                            Icons.check,
+                                                                            size: 6,
+                                                                            color: Colors.black,
+                                                                            weight: 10,
+                                                                          ),
+                                                                        ),
+                                                                        const SizedBox(width: 10),
+                                                                      ],
+
+                                                                      Text(
+                                                                        story.date,
+                                                                        style: TextStyle(
+                                                                          color: Colors.white.withOpacity(0.7),
+                                                                          fontSize: 12,
+                                                                          fontWeight: FontWeight.w500,
+                                                                          letterSpacing: 0.2,
+                                                                        ),
+                                                                      ),
                                                                     ],
                                                                   ),
+
+                                                                  if (story.song != '') ...[
+                                                                    Row(
+                                                                      children: [
+                                                                        Icon(Icons.music_note, size: 14),
+                                                                        Text(
+                                                                          story.song,
+                                                                          style: TextStyle(
+                                                                            color: Colors.white,
+                                                                            fontSize: 10,
+                                                                            fontWeight: FontWeight.w500,
+                                                                          ),
+                                                                        ),
+
+                                                                        Icon(Icons.keyboard_arrow_right, size: 17),
+                                                                      ],
+                                                                    ),
+                                                                  ],
                                                                 ],
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
+                                                              ),
+                                                            ],
+                                                          ),
 
-                                                        Row(
-                                                          children: [
-                                                            Icon(Icons.more_horiz, size: 25, color: Colors.white),
+                                                          Row(
+                                                            children: [
+                                                              Icon(Icons.more_horiz, size: 25, color: Colors.white),
 
-                                                            const SizedBox(width: 13),
+                                                              const SizedBox(width: 13),
 
-                                                            Icon(Icons.close, size: 35, color: Colors.white),
-                                                          ],
-                                                        ),
-                                                      ],
+                                                              Icon(Icons.close, size: 35, color: Colors.white),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
+
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: TextField(
+                                                        style: const TextStyle(color: Colors.white, fontSize: 14),
+                                                        decoration: InputDecoration(
+                                                          hintText: 'Send Message...',
+                                                          border: OutlineInputBorder(
+                                                            borderRadius: BorderRadius.circular(25),
+                                                          ),
+                                                          hintStyle: TextStyle(color: Colors.white),
+                                                          contentPadding: const EdgeInsets.symmetric(
+                                                            horizontal: 10,
+                                                            vertical: 4,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                    const SizedBox(width: 8),
+                                                    GestureDetector(
+                                                      child: Icon(
+                                                        story.isLiked ? Icons.favorite : Icons.favorite_border,
+                                                        size: 25,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    const Icon(CupertinoIcons.share, size: 25, color: Colors.white),
+                                                  ],
+                                                ),
+                                              ),
+
+                                              const SizedBox(height: 10),
                                             ],
                                           ),
                                         );
@@ -258,6 +298,7 @@ class _HomeState extends State<Home> {
                                     ),
                                   );
                                 },
+
                                 child: Container(
                                   padding: EdgeInsets.all(3),
                                   decoration: BoxDecoration(

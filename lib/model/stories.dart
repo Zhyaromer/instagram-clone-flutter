@@ -3,7 +3,7 @@ class Stories {
   final String username;
   final String imageUrl;
   final String storieUrl;
-  final bool isLiked;
+  bool isLiked;
   final bool isVerified;
   final String date;
   final String song;
@@ -25,6 +25,7 @@ List<Stories> storyData = [
     id: "1",
     username: "przhekareem",
     isVerified: true,
+    isLiked: true,
     song: "the winner takes it all",
     imageUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400",
     storieUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
@@ -34,7 +35,6 @@ List<Stories> storyData = [
     id: "2",
     username: "nature_lover",
     song: "Sonne",
-    isLiked: true,
     imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
     storieUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
     date: "3h",
