@@ -6,9 +6,9 @@ class Posts {
   final String username;
   final String pageCover;
   final List<Imageposts> images;
-  final int likes;
+  int likes;
   final int comments;
-  final int reposts;
+  int reposts;
   final int share;
   final String caption;
   final List<Tags> tags;
@@ -49,14 +49,7 @@ List<Posts> mockPosts = [
     id: "1",
     username: "mountain_explorer",
     pageCover: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-    images: [
-      Imageposts(
-        id: 101,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b",
-      ),
-    ],
+    images: [Imageposts(id: 101, index: 0, UrlImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b")],
     likes: 1250,
     comments: 45,
     reposts: 12,
@@ -67,7 +60,7 @@ List<Posts> mockPosts = [
     timeAgo: "2 hours ago",
     haveStory: true,
     isLiked: true,
-    isReposted: true,
+    isReposted: false,
     music: "Alpine Dreams - Nature Audio",
     isFollowed: true,
   ),
@@ -76,24 +69,9 @@ List<Posts> mockPosts = [
     username: "ocean_breeze",
     pageCover: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
     images: [
-      Imageposts(
-        id: 102,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1519046904884-53103b34b206",
-      ),
-      Imageposts(
-        id: 102,
-        index: 1,
-        UrlImage:
-            "https://images.unsplash.com/photo-1448375240586-882707db888b",
-      ),
-      Imageposts(
-        id: 102,
-        index: 2,
-        UrlImage:
-            "https://images.unsplash.com/photo-1501183007986-d0d080b147f9",
-      ),
+      Imageposts(id: 102, index: 0, UrlImage: "https://images.unsplash.com/photo-1519046904884-53103b34b206"),
+      Imageposts(id: 102, index: 1, UrlImage: "https://images.unsplash.com/photo-1448375240586-882707db888b"),
+      Imageposts(id: 102, index: 2, UrlImage: "https://images.unsplash.com/photo-1501183007986-d0d080b147f9"),
     ],
     likes: 840,
     comments: 22,
@@ -109,14 +87,7 @@ List<Posts> mockPosts = [
     id: "3",
     username: "forest_spirit",
     pageCover: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
-    images: [
-      Imageposts(
-        id: 103,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1448375240586-882707db888b",
-      ),
-    ],
+    images: [Imageposts(id: 103, index: 0, UrlImage: "https://images.unsplash.com/photo-1448375240586-882707db888b")],
     likes: 2100,
     comments: 110,
     reposts: 40,
@@ -130,14 +101,7 @@ List<Posts> mockPosts = [
     id: "4",
     username: "desert_rider",
     pageCover: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0",
-    images: [
-      Imageposts(
-        id: 104,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1445964047600-cdbdb873673d",
-      ),
-    ],
+    images: [Imageposts(id: 104, index: 0, UrlImage: "https://images.unsplash.com/photo-1445964047600-cdbdb873673d")],
     likes: 670,
     comments: 30,
     reposts: 8,
@@ -152,14 +116,7 @@ List<Posts> mockPosts = [
     id: "5",
     username: "sky_high",
     pageCover: "https://images.unsplash.com/photo-1470252649358-96957c053e9a",
-    images: [
-      Imageposts(
-        id: 105,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1501183007986-d0d080b147f9",
-      ),
-    ],
+    images: [Imageposts(id: 105, index: 0, UrlImage: "https://images.unsplash.com/photo-1501183007986-d0d080b147f9")],
     likes: 3200,
     comments: 150,
     reposts: 90,
@@ -175,14 +132,7 @@ List<Posts> mockPosts = [
     id: "6",
     username: "city_vibes",
     pageCover: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000",
-    images: [
-      Imageposts(
-        id: 106,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df",
-      ),
-    ],
+    images: [Imageposts(id: 106, index: 0, UrlImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df")],
     likes: 1100,
     comments: 85,
     reposts: 20,
@@ -197,14 +147,7 @@ List<Posts> mockPosts = [
     id: "7",
     username: "arc_design",
     pageCover: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
-    images: [
-      Imageposts(
-        id: 107,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1449156001437-3a144f712217",
-      ),
-    ],
+    images: [Imageposts(id: 107, index: 0, UrlImage: "https://images.unsplash.com/photo-1449156001437-3a144f712217")],
     likes: 450,
     comments: 12,
     reposts: 30,
@@ -218,14 +161,7 @@ List<Posts> mockPosts = [
     id: "8",
     username: "street_soul",
     pageCover: "https://images.unsplash.com/photo-1514565131-fce0801e5785",
-    images: [
-      Imageposts(
-        id: 108,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
-      ),
-    ],
+    images: [Imageposts(id: 108, index: 0, UrlImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34")],
     likes: 900,
     comments: 40,
     reposts: 15,
@@ -240,14 +176,7 @@ List<Posts> mockPosts = [
     id: "9",
     username: "tokyo_night",
     pageCover: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf",
-    images: [
-      Imageposts(
-        id: 109,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1503899036084-c55cdd92da26",
-      ),
-    ],
+    images: [Imageposts(id: 109, index: 0, UrlImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26")],
     likes: 5400,
     comments: 300,
     reposts: 120,
@@ -261,14 +190,7 @@ List<Posts> mockPosts = [
     id: "10",
     username: "london_eye",
     pageCover: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad",
-    images: [
-      Imageposts(
-        id: 110,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1486299267070-83823f5448dd",
-      ),
-    ],
+    images: [Imageposts(id: 110, index: 0, UrlImage: "https://images.unsplash.com/photo-1486299267070-83823f5448dd")],
     likes: 720,
     comments: 25,
     reposts: 10,
@@ -284,14 +206,7 @@ List<Posts> mockPosts = [
     id: "11",
     username: "fashion_week",
     pageCover: "https://images.unsplash.com/photo-1483985988355-763728e1935b",
-    images: [
-      Imageposts(
-        id: 111,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d",
-      ),
-    ],
+    images: [Imageposts(id: 111, index: 0, UrlImage: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d")],
     likes: 1800,
     comments: 90,
     reposts: 25,
@@ -306,14 +221,7 @@ List<Posts> mockPosts = [
     id: "12",
     username: "cafe_culture",
     pageCover: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-    images: [
-      Imageposts(
-        id: 112,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
-      ),
-    ],
+    images: [Imageposts(id: 112, index: 0, UrlImage: "https://images.unsplash.com/photo-1509042239860-f550ce710b93")],
     likes: 340,
     comments: 15,
     reposts: 2,
@@ -328,14 +236,7 @@ List<Posts> mockPosts = [
     id: "13",
     username: "fitness_journey",
     pageCover: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438",
-    images: [
-      Imageposts(
-        id: 113,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1534438327276-14e5300c3a48",
-      ),
-    ],
+    images: [Imageposts(id: 113, index: 0, UrlImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48")],
     likes: 670,
     comments: 34,
     reposts: 5,
@@ -349,14 +250,7 @@ List<Posts> mockPosts = [
     id: "14",
     username: "book_worm",
     pageCover: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d",
-    images: [
-      Imageposts(
-        id: 114,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1512820790803-83ca734da794",
-      ),
-    ],
+    images: [Imageposts(id: 114, index: 0, UrlImage: "https://images.unsplash.com/photo-1512820790803-83ca734da794")],
     likes: 210,
     comments: 55,
     reposts: 10,
@@ -370,14 +264,7 @@ List<Posts> mockPosts = [
     id: "15",
     username: "gamer_pro",
     pageCover: "https://images.unsplash.com/photo-1542751371-adc38448a05e",
-    images: [
-      Imageposts(
-        id: 115,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1511512578047-dfb367046420",
-      ),
-    ],
+    images: [Imageposts(id: 115, index: 0, UrlImage: "https://images.unsplash.com/photo-1511512578047-dfb367046420")],
     likes: 4200,
     comments: 180,
     reposts: 300,
@@ -393,14 +280,7 @@ List<Posts> mockPosts = [
     id: "16",
     username: "chef_table",
     pageCover: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-    images: [
-      Imageposts(
-        id: 116,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1473093226795-af9932fe5856",
-      ),
-    ],
+    images: [Imageposts(id: 116, index: 0, UrlImage: "https://images.unsplash.com/photo-1473093226795-af9932fe5856")],
     likes: 1300,
     comments: 60,
     reposts: 40,
@@ -415,14 +295,7 @@ List<Posts> mockPosts = [
     id: "17",
     username: "sweet_bites",
     pageCover: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543",
-    images: [
-      Imageposts(
-        id: 117,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1484723088339-323ec287900b",
-      ),
-    ],
+    images: [Imageposts(id: 117, index: 0, UrlImage: "https://images.unsplash.com/photo-1484723088339-323ec287900b")],
     likes: 890,
     comments: 33,
     reposts: 12,
@@ -436,14 +309,7 @@ List<Posts> mockPosts = [
     id: "18",
     username: "pizza_lover",
     pageCover: "https://images.unsplash.com/photo-1513104890138-7c749659a591",
-    images: [
-      Imageposts(
-        id: 118,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e",
-      ),
-    ],
+    images: [Imageposts(id: 118, index: 0, UrlImage: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e")],
     likes: 2500,
     comments: 100,
     reposts: 60,
@@ -457,14 +323,7 @@ List<Posts> mockPosts = [
     id: "19",
     username: "green_eats",
     pageCover: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
-    images: [
-      Imageposts(
-        id: 119,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
-      ),
-    ],
+    images: [Imageposts(id: 119, index: 0, UrlImage: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe")],
     likes: 430,
     comments: 18,
     reposts: 5,
@@ -478,14 +337,7 @@ List<Posts> mockPosts = [
     id: "20",
     username: "barista_boy",
     pageCover: "https://images.unsplash.com/photo-1442512595331-e89e73853f31",
-    images: [
-      Imageposts(
-        id: 120,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1497933321162-0362a208ad44",
-      ),
-    ],
+    images: [Imageposts(id: 120, index: 0, UrlImage: "https://images.unsplash.com/photo-1497933321162-0362a208ad44")],
     likes: 620,
     comments: 22,
     reposts: 8,
@@ -501,13 +353,7 @@ List<Posts> mockPosts = [
     id: "21",
     username: "doggo_hub",
     pageCover: "https://images.unsplash.com/photo-1517849845537-4d257902454a",
-    images: [
-      Imageposts(
-        id: 121,
-        index: 0,
-        UrlImage: "https://images.unsplash.com/photo-1543466835-00a7907e9de1",
-      ),
-    ],
+    images: [Imageposts(id: 121, index: 0, UrlImage: "https://images.unsplash.com/photo-1543466835-00a7907e9de1")],
     likes: 8500,
     comments: 400,
     reposts: 900,
@@ -522,14 +368,7 @@ List<Posts> mockPosts = [
     id: "22",
     username: "cat_nap",
     pageCover: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
-    images: [
-      Imageposts(
-        id: 122,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1495360010541-f48722b34f7d",
-      ),
-    ],
+    images: [Imageposts(id: 122, index: 0, UrlImage: "https://images.unsplash.com/photo-1495360010541-f48722b34f7d")],
     likes: 3100,
     comments: 120,
     reposts: 50,
@@ -543,13 +382,7 @@ List<Posts> mockPosts = [
     id: "23",
     username: "dev_life",
     pageCover: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-    images: [
-      Imageposts(
-        id: 123,
-        index: 0,
-        UrlImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
-      ),
-    ],
+    images: [Imageposts(id: 123, index: 0, UrlImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c")],
     likes: 1400,
     comments: 88,
     reposts: 70,
@@ -564,13 +397,7 @@ List<Posts> mockPosts = [
     id: "24",
     username: "setup_wars",
     pageCover: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf",
-    images: [
-      Imageposts(
-        id: 124,
-        index: 0,
-        UrlImage: "https://images.unsplash.com/photo-1550745165-9bc0b252726f",
-      ),
-    ],
+    images: [Imageposts(id: 124, index: 0, UrlImage: "https://images.unsplash.com/photo-1550745165-9bc0b252726f")],
     likes: 2700,
     comments: 140,
     reposts: 95,
@@ -584,14 +411,7 @@ List<Posts> mockPosts = [
     id: "25",
     username: "space_geek",
     pageCover: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa",
-    images: [
-      Imageposts(
-        id: 125,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1451187580459-43490279c0fa",
-      ),
-    ],
+    images: [Imageposts(id: 125, index: 0, UrlImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa")],
     likes: 9200,
     comments: 550,
     reposts: 1200,
@@ -607,14 +427,7 @@ List<Posts> mockPosts = [
     id: "26",
     username: "art_gallery",
     pageCover: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b",
-    images: [
-      Imageposts(
-        id: 126,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1513364776144-60967b0f800f",
-      ),
-    ],
+    images: [Imageposts(id: 126, index: 0, UrlImage: "https://images.unsplash.com/photo-1513364776144-60967b0f800f")],
     likes: 740,
     comments: 45,
     reposts: 20,
@@ -629,14 +442,7 @@ List<Posts> mockPosts = [
     id: "27",
     username: "minimal_interiors",
     pageCover: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
-    images: [
-      Imageposts(
-        id: 127,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1513694203232-719a280e022f",
-      ),
-    ],
+    images: [Imageposts(id: 127, index: 0, UrlImage: "https://images.unsplash.com/photo-1513694203232-719a280e022f")],
     likes: 1200,
     comments: 50,
     reposts: 35,
@@ -650,14 +456,7 @@ List<Posts> mockPosts = [
     id: "28",
     username: "vintage_auto",
     pageCover: "https://images.unsplash.com/photo-1503376780353-7e6692767b70",
-    images: [
-      Imageposts(
-        id: 128,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1494976388531-d1058494cdd8",
-      ),
-    ],
+    images: [Imageposts(id: 128, index: 0, UrlImage: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8")],
     likes: 2900,
     comments: 130,
     reposts: 110,
@@ -671,14 +470,7 @@ List<Posts> mockPosts = [
     id: "29",
     username: "vinyl_junkie",
     pageCover: "https://images.unsplash.com/photo-1514525253361-bee8718a303b",
-    images: [
-      Imageposts(
-        id: 129,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1470225620780-dba8ba36b745",
-      ),
-    ],
+    images: [Imageposts(id: 129, index: 0, UrlImage: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745")],
     likes: 560,
     comments: 28,
     reposts: 15,
@@ -692,14 +484,7 @@ List<Posts> mockPosts = [
     id: "30",
     username: "winter_tale",
     pageCover: "https://images.unsplash.com/photo-1477601263430-59526ee6062f",
-    images: [
-      Imageposts(
-        id: 130,
-        index: 0,
-        UrlImage:
-            "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22",
-      ),
-    ],
+    images: [Imageposts(id: 130, index: 0, UrlImage: "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22")],
     likes: 1100,
     comments: 40,
     reposts: 18,

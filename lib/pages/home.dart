@@ -234,15 +234,29 @@ class _HomeState extends State<Home> {
                             Row(
                               children: [
                                 if (!post.isFollowed) ...[
-                                  Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[900],
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Text(
-                                      'Follow',
-                                      style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        post.isFollowed = !post.isFollowed;
+                                      });
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('${post.username} followed')),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[900],
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        'Follow',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -286,7 +300,10 @@ class _HomeState extends State<Home> {
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Center(
-                                        child: Text('${index + 1}/${images.length}', style: TextStyle(fontSize: 12)),
+                                        child: Text(
+                                          '${index + 1}/${images.length}',
+                                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -306,27 +323,58 @@ class _HomeState extends State<Home> {
                           children: [
                             Row(
                               children: [
-                                postActions(
-                                  Icon(CupertinoIcons.heart),
-                                  Icon(CupertinoIcons.heart_fill, color: Colors.red),
-                                  post.likes,
-                                  post.isLiked,
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (post.isLiked) {
+                                        post.likes = post.likes - 1;
+                                      } else {
+                                        post.likes = post.likes + 1;
+                                      }
+                                      post.isLiked = !post.isLiked;
+                                    });
+                                  },
+                                  child: postActions(
+                                    Icon(CupertinoIcons.heart),
+                                    Icon(CupertinoIcons.heart_fill, color: Colors.red),
+                                    post.likes,
+                                    post.isLiked,
+                                  ),
                                 ),
                                 const SizedBox(width: 12),
                                 postActions(Icon(CupertinoIcons.chat_bubble), null, post.comments, false),
                                 const SizedBox(width: 12),
-                                postActions(
-                                  Icon(CupertinoIcons.arrow_2_squarepath),
-                                  Icon(CupertinoIcons.arrow_2_circlepath_circle_fill),
-                                  post.reposts,
-                                  post.isReposted,
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (post.isReposted) {
+                                        post.reposts = post.reposts - 1;
+                                      } else {
+                                        post.reposts = post.reposts + 1;
+                                      }
+                                      post.isReposted = !post.isReposted;
+                                    });
+                                  },
+                                  child: postActions(
+                                    Icon(CupertinoIcons.arrow_2_squarepath),
+                                    Icon(CupertinoIcons.arrow_2_circlepath_circle_fill),
+                                    post.reposts,
+                                    post.isReposted,
+                                  ),
                                 ),
                                 const SizedBox(width: 12),
                                 postActions(Icon(CupertinoIcons.paperplane), null, post.share, false),
                               ],
                             ),
 
-                            Icon(post.isSaved ? Icons.bookmark : Icons.bookmark_outline),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  post.isSaved = !post.isSaved;
+                                });
+                              },
+                              child: Icon(post.isSaved ? Icons.bookmark : Icons.bookmark_outline),
+                            ),
                           ],
                         ),
                       ),
