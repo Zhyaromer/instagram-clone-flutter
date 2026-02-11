@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:instagram/model/stories.dart';
 
@@ -14,22 +16,17 @@ class Storyviewer extends StatefulWidget {
 class _StoryviewerState extends State<Storyviewer> {
   late PageController _pageController;
   int currentIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(initialPage: widget.index);
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
+  double progress = 0.0;
+  Timer? _timer;
+  final int storyDuration = 10;
+  late DateTime _startTime;
 
   void nextScreen() {
     if (currentIndex < widget.story.length - 1) {
       currentIndex++;
+      _timer?.cancel();
+      progress = 0.0;
+      startProgress();
       _pageController.animateToPage(currentIndex, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
   }
@@ -37,8 +34,55 @@ class _StoryviewerState extends State<Storyviewer> {
   void prevScreen() {
     if (currentIndex > 0) {
       currentIndex--;
+      _timer?.cancel();
+      progress = 0.0;
+      startProgress();
       _pageController.animateToPage(currentIndex, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
+  }
+
+  void startProgress() {
+    _startTime = DateTime.now();
+    _timer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+      final elapsed = DateTime.now().difference(_startTime).inMilliseconds;
+      setState(() {
+        progress = elapsed / (storyDuration * 1000);
+
+        if (progress >= 1.0) {
+          _timer?.cancel();
+          nextScreen();
+          progress = 0.0;
+          startProgress();
+        }
+      });
+    });
+  }
+
+  void updateProgress() {
+    setState(() {
+      progress = progress + 0.01;
+
+      if (progress >= 1.0) {
+        _timer?.cancel();
+        nextScreen();
+        progress = 0.0;
+        startProgress();
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: widget.index);
+    startProgress();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -83,9 +127,9 @@ class _StoryviewerState extends State<Storyviewer> {
                             width: MediaQuery.of(context).size.height,
                             decoration: BoxDecoration(color: Colors.grey[400]),
                             child: ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(8),
+                              borderRadius: BorderRadiusGeometry.circular(12),
                               child: LinearProgressIndicator(
-                                value: 0.1,
+                                value: progress,
                                 backgroundColor: Colors.white24,
                                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                               ),
