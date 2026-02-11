@@ -3,7 +3,7 @@ class Stories {
   final String username;
   final String imageUrl;
   final String storieUrl;
-  bool isLiked;
+  bool isStoryLiked;
   final bool isVerified;
   final String date;
   final String song;
@@ -16,7 +16,7 @@ class Stories {
     required this.date,
     this.isVerified = false,
     this.song = '',
-    this.isLiked = false,
+    this.isStoryLiked = false,
   });
 }
 
@@ -25,7 +25,7 @@ List<Stories> storyData = [
     id: "1",
     username: "przhekareem",
     isVerified: true,
-    isLiked: true,
+    isStoryLiked: true,
     song: "the winner takes it all",
     imageUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400",
     storieUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
@@ -49,7 +49,7 @@ List<Stories> storyData = [
   Stories(
     id: "4",
     username: "chef_mariana",
-    isLiked: true,
+    isStoryLiked: true,
     imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400",
     storieUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800",
     date: "6h",
@@ -71,7 +71,7 @@ List<Stories> storyData = [
   Stories(
     id: "7",
     username: "art_by_leo",
-    isLiked: true,
+    isStoryLiked: true,
     imageUrl: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400",
     storieUrl: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800",
     date: "12h",
@@ -86,7 +86,7 @@ List<Stories> storyData = [
   Stories(
     id: "9",
     username: "sara_styles",
-    isLiked: true,
+    isStoryLiked: true,
     imageUrl: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400",
     storieUrl: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800",
     date: "16h",

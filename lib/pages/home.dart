@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/model/posts.dart';
 import 'package:instagram/model/stories.dart';
+import 'package:instagram/pages/storyviewr.dart';
+import 'package:instagram/ui/ExpandableCaption.dart';
 
 final List<Color> instagramGradient = [
   Color(0xFFFEDA75), // yellow
@@ -120,180 +122,7 @@ class _HomeState extends State<Home> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return Scaffold(
-                                          body: Column(
-                                            children: [
-                                              Expanded(
-                                                child: Stack(
-                                                  children: [
-                                                    Container(
-                                                      width: double.infinity,
-                                                      height: MediaQuery.of(context).size.height * 0.9,
-                                                      decoration: BoxDecoration(
-                                                        image: DecorationImage(
-                                                          image: NetworkImage(story.storieUrl),
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-
-                                                    Positioned(
-                                                      top: 10,
-                                                      left: 10,
-                                                      right: 10,
-                                                      child: Container(
-                                                        height: 3,
-                                                        width: MediaQuery.of(context).size.height,
-                                                        decoration: BoxDecoration(color: Colors.grey[400]),
-                                                        child: ClipRRect(
-                                                          borderRadius: BorderRadiusGeometry.circular(8),
-                                                          child: LinearProgressIndicator(
-                                                            value: 0.1,
-                                                            backgroundColor: Colors.white24,
-                                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-
-                                                    Positioned(
-                                                      top: 20,
-                                                      left: 10,
-                                                      right: 10,
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Row(
-                                                            children: [
-                                                              CircleAvatar(
-                                                                backgroundImage: NetworkImage(story.storieUrl),
-                                                              ),
-
-                                                              const SizedBox(width: 10),
-
-                                                              Column(
-                                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                children: [
-                                                                  Row(
-                                                                    children: [
-                                                                      Text(
-                                                                        story.username,
-                                                                        style: TextStyle(
-                                                                          color: Colors.white,
-                                                                          fontSize: 12,
-                                                                          fontWeight: FontWeight.bold,
-                                                                        ),
-                                                                      ),
-
-                                                                      const SizedBox(width: 6),
-
-                                                                      if (story.isVerified) ...[
-                                                                        Container(
-                                                                          padding: EdgeInsets.all(2),
-                                                                          decoration: BoxDecoration(
-                                                                            color: Colors.white,
-                                                                            shape: BoxShape.circle,
-                                                                          ),
-                                                                          child: Icon(
-                                                                            Icons.check,
-                                                                            size: 6,
-                                                                            color: Colors.black,
-                                                                            weight: 10,
-                                                                          ),
-                                                                        ),
-                                                                        const SizedBox(width: 10),
-                                                                      ],
-
-                                                                      Text(
-                                                                        story.date,
-                                                                        style: TextStyle(
-                                                                          color: Colors.white.withOpacity(0.7),
-                                                                          fontSize: 12,
-                                                                          fontWeight: FontWeight.w500,
-                                                                          letterSpacing: 0.2,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-
-                                                                  if (story.song != '') ...[
-                                                                    Row(
-                                                                      children: [
-                                                                        Icon(Icons.music_note, size: 14),
-                                                                        Text(
-                                                                          story.song,
-                                                                          style: TextStyle(
-                                                                            color: Colors.white,
-                                                                            fontSize: 10,
-                                                                            fontWeight: FontWeight.w500,
-                                                                          ),
-                                                                        ),
-
-                                                                        Icon(Icons.keyboard_arrow_right, size: 17),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-
-                                                          Row(
-                                                            children: [
-                                                              Icon(Icons.more_horiz, size: 25, color: Colors.white),
-
-                                                              const SizedBox(width: 13),
-
-                                                              Icon(Icons.close, size: 35, color: Colors.white),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: TextField(
-                                                        style: const TextStyle(color: Colors.white, fontSize: 14),
-                                                        decoration: InputDecoration(
-                                                          hintText: 'Send Message...',
-                                                          border: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(25),
-                                                          ),
-                                                          hintStyle: TextStyle(color: Colors.white),
-                                                          contentPadding: const EdgeInsets.symmetric(
-                                                            horizontal: 10,
-                                                            vertical: 4,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-
-                                                    const SizedBox(width: 8),
-                                                    GestureDetector(
-                                                      child: Icon(
-                                                        story.isLiked ? Icons.favorite : Icons.favorite_border,
-                                                        size: 25,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    const Icon(CupertinoIcons.share, size: 25, color: Colors.white),
-                                                  ],
-                                                ),
-                                              ),
-
-                                              const SizedBox(height: 10),
-                                            ],
-                                          ),
-                                        );
+                                        return Storyviewer(story: storyData, index: (index - 1));
                                       },
                                     ),
                                   );
@@ -349,7 +178,7 @@ class _HomeState extends State<Home> {
               itemBuilder: (context, index) {
                 final post = mockPosts[index];
                 final images = post.images;
-                return Container(
+                return SizedBox(
                   child: Column(
                     children: [
                       Padding(
@@ -534,53 +363,4 @@ class _HomeState extends State<Home> {
 
 Widget postActions(Icon icon, Icon? newIcon, int number, bool state) {
   return Row(children: [?state ? newIcon : icon, const SizedBox(width: 6), Text(number.toString())]);
-}
-
-class ExpandableCaption extends StatefulWidget {
-  final String username;
-  final String caption;
-
-  const ExpandableCaption({super.key, required this.username, required this.caption});
-
-  @override
-  State<ExpandableCaption> createState() => _ExpandableCaptionState();
-}
-
-class _ExpandableCaptionState extends State<ExpandableCaption> {
-  bool isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isExpanded = !isExpanded;
-        });
-      },
-      child: RichText(
-        softWrap: true,
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: '${widget.username} ',
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12),
-            ),
-            TextSpan(
-              text: widget.caption.length > 50
-                  ? isExpanded
-                        ? widget.caption
-                        : widget.caption.substring(0, 50)
-                  : widget.caption,
-              style: TextStyle(color: Colors.white, fontSize: 12),
-            ),
-            if (!isExpanded && widget.caption.length > 50)
-              TextSpan(
-                text: ' ... more',
-                style: TextStyle(color: Colors.grey, fontSize: 12),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
 }
