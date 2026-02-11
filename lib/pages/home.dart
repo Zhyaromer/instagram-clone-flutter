@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/model/posts.dart';
 import 'package:instagram/model/stories.dart';
@@ -306,17 +307,22 @@ class _HomeState extends State<Home> {
                             Row(
                               children: [
                                 postActions(
-                                  Icon(Icons.favorite_border),
-                                  Icon(Icons.favorite),
+                                  Icon(CupertinoIcons.heart),
+                                  Icon(CupertinoIcons.heart_fill, color: Colors.red),
                                   post.likes,
                                   post.isLiked,
                                 ),
                                 const SizedBox(width: 12),
-                                postActions(Icon(Icons.comment), null, post.comments, false),
+                                postActions(Icon(CupertinoIcons.chat_bubble), null, post.comments, false),
                                 const SizedBox(width: 12),
-                                postActions(Icon(Icons.repeat), Icon(Icons.repeat_one), post.reposts, post.isReposted),
+                                postActions(
+                                  Icon(CupertinoIcons.arrow_2_squarepath),
+                                  Icon(CupertinoIcons.arrow_2_circlepath_circle_fill),
+                                  post.reposts,
+                                  post.isReposted,
+                                ),
                                 const SizedBox(width: 12),
-                                postActions(Icon(Icons.send), null, post.share, false),
+                                postActions(Icon(CupertinoIcons.paperplane), null, post.share, false),
                               ],
                             ),
 
@@ -362,5 +368,14 @@ class _HomeState extends State<Home> {
 }
 
 Widget postActions(Icon icon, Icon? newIcon, int number, bool state) {
-  return Row(children: [?state ? newIcon : icon, const SizedBox(width: 6), Text(number.toString())]);
+  return Row(
+    children: [
+      ?state ? newIcon : icon,
+      const SizedBox(width: 4),
+      Text(
+        number.toString(),
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+      ),
+    ],
+  );
 }

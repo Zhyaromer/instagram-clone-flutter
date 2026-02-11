@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/model/stories.dart';
 
@@ -266,8 +267,7 @@ class _StoryviewerState extends State<Storyviewer> {
 
                       const SizedBox(width: 8),
                       StoryItem(story: storyView),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.share, size: 30, color: Colors.white),
+                      const Icon(CupertinoIcons.paperplane, size: 25, color: Colors.white),
                     ],
                   ),
                 ),
@@ -293,7 +293,7 @@ class _StoryItemState extends State<StoryItem> {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(
-        size: 30,
+        size: 25,
         widget.story.isStoryLiked ? Icons.favorite : Icons.favorite_border,
         color: widget.story.isStoryLiked ? Colors.red : Colors.white,
       ),
