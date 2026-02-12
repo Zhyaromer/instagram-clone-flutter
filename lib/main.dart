@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram/pages/home.dart';
+import 'package:instagram/pages/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
+      home: MainScreen(),
       theme: ThemeData.dark(),
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,

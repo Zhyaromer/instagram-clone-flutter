@@ -7,11 +7,11 @@ import 'package:instagram/pages/storyviewr.dart';
 import 'package:instagram/ui/ExpandableCaption.dart';
 
 final List<Color> instagramGradient = [
-  Color(0xFFFEDA75), // yellow
-  Color(0xFFFA7E1E), // orange
-  Color(0xFFD62976), // pink
-  Color(0xFF962FBF), // purple
-  Color(0xFF4F5BD5), // blue
+  Color(0xFFFEDA75),
+  Color(0xFFFA7E1E),
+  Color(0xFFD62976),
+  Color(0xFF962FBF),
+  Color(0xFF4F5BD5),
 ];
 
 class Home extends StatefulWidget {
@@ -22,9 +22,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final PageController _pageController = PageController();
-  int currentIndex = 0;
-
   @override
   void initState() {
     super.initState();
@@ -53,6 +50,8 @@ class _HomeState extends State<Home> {
             child: Icon(Icons.favorite_border, size: 25, color: Colors.white),
           ),
         ],
+        elevation: 0,
+        scrolledUnderElevation: 0,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -267,7 +266,7 @@ class _HomeState extends State<Home> {
 
                                 const SizedBox(width: 12),
 
-                                Icon(Icons.more_horiz, color: Colors.white),
+                                Icon(Icons.more_vert, color: Colors.white),
                               ],
                             ),
                           ],
@@ -402,7 +401,7 @@ class PostImages extends StatefulWidget {
 
 class _PostImagesState extends State<PostImages> {
   final PageController _pageController = PageController();
-  int currentIndex = 0; // Each post has its own index
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -417,7 +416,7 @@ class _PostImagesState extends State<PostImages> {
                 itemCount: widget.images.length,
                 onPageChanged: (index) {
                   setState(() {
-                    currentIndex = index; // Only updates this post
+                    currentIndex = index;
                   });
                 },
                 itemBuilder: (context, index) {
@@ -425,7 +424,6 @@ class _PostImagesState extends State<PostImages> {
                 },
               ),
 
-              // Top-right page indicator
               if (widget.images.length > 1)
                 Positioned(
                   top: 10,
@@ -446,20 +444,20 @@ class _PostImagesState extends State<PostImages> {
           ),
         ),
 
-        // Instagram-style progress bars
         if (widget.images.length > 1)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(widget.images.length, (index) {
-                return Container(
+                return AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
                   margin: EdgeInsets.symmetric(horizontal: 2),
-                  height: 3,
-                  width: 20,
+                  height: 6,
+                  width: (currentIndex == index) ? 20 : 8,
                   decoration: BoxDecoration(
                     color: index == currentIndex ? Colors.white : Colors.grey[700],
-                    borderRadius: BorderRadius.circular(1.5),
+                    borderRadius: BorderRadius.circular(2.5),
                   ),
                 );
               }),
