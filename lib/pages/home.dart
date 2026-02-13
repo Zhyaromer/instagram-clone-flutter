@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram/model/comments.dart';
 import 'package:instagram/model/imageposts.dart';
 import 'package:instagram/model/posts.dart';
 import 'package:instagram/model/stories.dart';
@@ -22,6 +23,202 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  double sheetHeight = 0.7;
+  final minHeight = 0.4;
+  final maxHeight = 0.95;
+
+  void openComments(String postid) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            void close() => Navigator.of(context).pop();
+
+            return GestureDetector(
+              behavior: HitTestBehavior.translucent,
+
+              onVerticalDragUpdate: (details) {
+                sheetHeight -= details.delta.dy / MediaQuery.of(context).size.height;
+
+                sheetHeight = sheetHeight.clamp(minHeight, maxHeight);
+                setState(() {});
+              },
+
+              onVerticalDragEnd: (details) {
+                final velocity = details.primaryVelocity ?? 0;
+
+                if (velocity > 900) {
+                  close();
+                  return;
+                }
+
+                if (sheetHeight <= minHeight + 0.05) {
+                  close();
+                  return;
+                }
+
+                if (sheetHeight < 0.65) {
+                  sheetHeight = 0.6;
+                } else {
+                  sheetHeight = 0.9;
+                }
+
+                setState(() {});
+              },
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 160),
+                  curve: Curves.easeOut,
+                  height: MediaQuery.of(context).size.height * sheetHeight,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[900],
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 12),
+
+                      Container(
+                        width: 42,
+                        height: 5,
+                        decoration: BoxDecoration(color: Colors.grey[400], borderRadius: BorderRadius.circular(10)),
+                      ),
+
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                        child: Text(
+                          'Comments',
+                          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: commentDataset.where((element) {
+                            return element.postId == postid;
+                          }).length,
+                          itemBuilder: (_, i) {
+                            final comment = commentDataset[i];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                              child: Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          CircleAvatar(backgroundImage: NetworkImage(comment.imageUrl)),
+
+                                          SizedBox(width: 10),
+
+                                          Flexible(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      comment.username,
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+
+                                                    const SizedBox(width: 4),
+
+                                                    if (comment.isVerified) ...[
+                                                      Container(
+                                                        padding: EdgeInsets.all(2),
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.blue,
+                                                          shape: BoxShape.circle,
+                                                        ),
+                                                        child: Icon(
+                                                          Icons.check,
+                                                          size: 6,
+                                                          color: Colors.black,
+                                                          weight: 10,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 4),
+                                                    ],
+
+                                                    Text(
+                                                      comment.date,
+                                                      style: TextStyle(
+                                                        color: Colors.white.withOpacity(0.7),
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.w500,
+                                                        letterSpacing: 0.2,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+
+                                                const SizedBox(height: 5),
+
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        softWrap: true,
+                                                        overflow: TextOverflow.visible,
+                                                        comment.content,
+                                                        style: TextStyle(
+                                                          color: Colors.grey[300],
+                                                          fontWeight: FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                    Column(
+                                                      children: [
+                                                        Icon(CupertinoIcons.heart, size: 17),
+                                                        if (comment.likes > 0) ...[
+                                                          Text(
+                                                            comment.likes.toString(),
+                                                            style: TextStyle(fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -305,7 +502,12 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                                 const SizedBox(width: 12),
-                                postActions(Icon(CupertinoIcons.chat_bubble), null, post.comments, false),
+                                GestureDetector(
+                                  onTap: () {
+                                    openComments(post.id);
+                                  },
+                                  child: postActions(Icon(CupertinoIcons.chat_bubble), null, post.comments, false),
+                                ),
                                 const SizedBox(width: 12),
                                 GestureDetector(
                                   onTap: () {
