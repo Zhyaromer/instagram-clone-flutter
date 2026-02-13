@@ -23,8 +23,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  double sheetHeight = 0.7;
-  final minHeight = 0.7;
+  double sheetHeight = 0.8;
+  final minHeight = 0.8;
   final maxHeight = 0.95;
 
   void openComments(String postid) {
@@ -39,11 +39,12 @@ class _HomeState extends State<Home> {
 
             return GestureDetector(
               behavior: HitTestBehavior.translucent,
+              onTap: close,
 
               onVerticalDragUpdate: (details) {
                 sheetHeight -= details.delta.dy / MediaQuery.of(context).size.height;
 
-                sheetHeight = sheetHeight.clamp(minHeight, maxHeight);
+                sheetHeight = sheetHeight.clamp(0.2, maxHeight);
                 setState(() {});
               },
 
@@ -55,15 +56,10 @@ class _HomeState extends State<Home> {
                   return;
                 }
 
-                if (sheetHeight <= minHeight + 0.05) {
-                  close();
-                  return;
-                }
-
-                if (sheetHeight < 0.65) {
-                  sheetHeight = 0.6;
+                if (sheetHeight < 0.8) {
+                  sheetHeight = minHeight;
                 } else {
-                  sheetHeight = 0.9;
+                  sheetHeight = maxHeight;
                 }
 
                 setState(() {});
@@ -71,6 +67,7 @@ class _HomeState extends State<Home> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: GestureDetector(
+                  onTap: () {},
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 160),
                     curve: Curves.easeOut,
