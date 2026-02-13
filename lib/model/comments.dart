@@ -307,3 +307,7 @@ List<Comments> filterCommentsByPostId(String postId) {
   List<Comments> filteredComments = commentDataset.where((comment) => comment.postId == postId).toList();
   return filteredComments;
 }
+
+int getTotalCommentsForPost(String postId) {
+  return filterCommentsByPostId(postId).length;
+}

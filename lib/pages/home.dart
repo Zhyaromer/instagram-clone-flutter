@@ -24,7 +24,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   double sheetHeight = 0.7;
-  final minHeight = 0.4;
+  final minHeight = 0.7;
   final maxHeight = 0.95;
 
   void openComments(String postid) {
@@ -70,161 +70,238 @@ class _HomeState extends State<Home> {
               },
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 160),
-                  curve: Curves.easeOut,
-                  height: MediaQuery.of(context).size.height * sheetHeight,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[900],
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                  ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 12),
+                child: GestureDetector(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 160),
+                    curve: Curves.easeOut,
+                    height: MediaQuery.of(context).size.height * sheetHeight,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[900],
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 12),
 
-                      Container(
-                        width: 42,
-                        height: 5,
-                        decoration: BoxDecoration(color: Colors.grey[400], borderRadius: BorderRadius.circular(10)),
-                      ),
-
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 12, horizontal: 0),
-                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-                        child: Text(
-                          'Comments',
-                          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                        Container(
+                          width: 42,
+                          height: 5,
+                          decoration: BoxDecoration(color: Colors.grey[400], borderRadius: BorderRadius.circular(10)),
                         ),
-                      ),
 
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: filterCommentsByPostId(postid).length,
-                          itemBuilder: (_, i) {
-                            final comment = filterCommentsByPostId(postid)[i];
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                          child: Text(
+                            'Comments',
+                            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
 
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CircleAvatar(backgroundImage: NetworkImage(comment.imageUrl)),
-
-                                  const SizedBox(width: 10),
-
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              comment.username,
-                                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                            ),
-
-                                            const SizedBox(width: 2),
-
-                                            if (comment.isVerified) ...[
-                                              Container(
-                                                padding: EdgeInsets.all(2),
-                                                decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-                                                child: Icon(Icons.check, size: 6, color: Colors.black, weight: 10),
-                                              ),
-                                              const SizedBox(width: 2),
-                                            ],
-
-                                            Text(
-                                              comment.date,
-                                              style: TextStyle(
-                                                color: Colors.white.withOpacity(0.7),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                letterSpacing: 0.2,
-                                              ),
-                                            ),
-                                          ],
+                        Expanded(
+                          child: filterCommentsByPostId(postid).isEmpty
+                              ? Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'No comments yet',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
                                         ),
+                                      ),
 
-                                        const SizedBox(height: 4),
+                                      const SizedBox(height: 8),
 
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    comment.content,
-                                                    style: TextStyle(
-                                                      color: Colors.white.withOpacity(0.9),
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w500,
-                                                    ),
-                                                  ),
+                                      Text(
+                                        'Start the conversation.',
+                                        style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 14),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : ListView.builder(
+                                  itemCount: filterCommentsByPostId(postid).length,
+                                  itemBuilder: (_, i) {
+                                    final comment = filterCommentsByPostId(postid)[i];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          CircleAvatar(backgroundImage: NetworkImage(comment.imageUrl)),
 
-                                                  const SizedBox(height: 8),
+                                          const SizedBox(width: 10),
 
-                                                  Text(
-                                                    'Reply',
-                                                    style: TextStyle(
-                                                      color: Colors.grey[400],
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      letterSpacing: 0.2,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                            const SizedBox(width: 10),
-
-                                            Column(
+                                          Expanded(
+                                            child: Column(
                                               mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      comment.toggleLike();
-                                                    });
-                                                  },
-                                                  child: Icon(
-                                                    comment.isLiked ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
-                                                    size: 20,
-                                                    color: comment.isLiked ? Colors.red : Colors.white,
-                                                  ),
-                                                ),
-                                                if (comment.likes > 0) ...[
-                                                  Opacity(
-                                                    opacity: 0.7,
-                                                    child: Text(
-                                                      comment.likes.toString(),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      comment.username,
                                                       style: TextStyle(
-                                                        fontSize: 12,
                                                         color: Colors.white,
-                                                        fontWeight: FontWeight.w500,
+                                                        fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+
+                                                    const SizedBox(width: 3),
+
+                                                    if (comment.isVerified) ...[
+                                                      Container(
+                                                        padding: EdgeInsets.all(2),
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.blue,
+                                                          shape: BoxShape.circle,
+                                                        ),
+                                                        child: Icon(
+                                                          Icons.check,
+                                                          size: 6,
+                                                          color: Colors.black,
+                                                          weight: 10,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 3),
+                                                    ],
+
+                                                    Text(
+                                                      comment.date,
+                                                      style: TextStyle(
+                                                        color: Colors.white.withOpacity(0.7),
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.w500,
+                                                        letterSpacing: 0.2,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+
+                                                const SizedBox(height: 4),
+
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            comment.content,
+                                                            style: TextStyle(
+                                                              color: Colors.white.withOpacity(0.9),
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.w500,
+                                                            ),
+                                                          ),
+
+                                                          const SizedBox(height: 8),
+
+                                                          Text(
+                                                            'Reply',
+                                                            style: TextStyle(
+                                                              color: Colors.grey[400],
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeight.bold,
+                                                              letterSpacing: 0.2,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+
+                                                    const SizedBox(width: 10),
+
+                                                    Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              comment.toggleLike();
+                                                            });
+                                                          },
+                                                          child: Icon(
+                                                            comment.isLiked
+                                                                ? CupertinoIcons.heart_fill
+                                                                : CupertinoIcons.heart,
+                                                            size: 20,
+                                                            color: comment.isLiked ? Colors.red : Colors.white,
+                                                          ),
+                                                        ),
+                                                        if (comment.likes > 0) ...[
+                                                          Opacity(
+                                                            opacity: 0.7,
+                                                            child: Text(
+                                                              comment.likes.toString(),
+                                                              style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: Colors.white,
+                                                                fontWeight: FontWeight.w500,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               ],
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
                         ),
-                      ),
-                    ],
+
+                        Container(
+                          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 40),
+                          decoration: BoxDecoration(
+                            border: Border(top: BorderSide(color: Colors.grey[800]!)),
+                          ),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 24,
+                                backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=currentuser'),
+                              ),
+
+                              const SizedBox(width: 10),
+
+                              Expanded(
+                                child: TextField(
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    constraints: const BoxConstraints(maxHeight: 36, minHeight: 28),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                                    hintText: 'What do you think of this?',
+                                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 14),
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      borderSide: BorderSide(color: Colors.grey[800]!),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      borderSide: BorderSide(color: Colors.grey[700]!),
+                                    ),
+                                    suffixIcon: Icon(Icons.gif_box_rounded, color: Colors.white.withOpacity(0.7)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -428,8 +505,8 @@ class _HomeState extends State<Home> {
                                         post.username,
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
@@ -525,7 +602,12 @@ class _HomeState extends State<Home> {
                                   onTap: () {
                                     openComments(post.id);
                                   },
-                                  child: postActions(Icon(CupertinoIcons.chat_bubble), null, post.comments, false),
+                                  child: postActions(
+                                    Icon(CupertinoIcons.chat_bubble),
+                                    null,
+                                    getTotalCommentsForPost(post.id),
+                                    false,
+                                  ),
                                 ),
                                 const SizedBox(width: 12),
                                 GestureDetector(
