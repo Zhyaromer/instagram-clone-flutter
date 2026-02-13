@@ -2,13 +2,18 @@ class Comments {
   final int id;
   final String postId;
   final String username;
-  final String content; // Added: The actual comment text
-  final String imageUrl; // Added: URL for the profile picture
-  final int likes;
-  final bool isLiked;
-  final bool isVerified; // Added: Verification status
+  final String content;
+  final String imageUrl;
+  int likes;
+  bool isLiked;
+  final bool isVerified;
   final String date;
   final bool hasStory;
+
+  void toggleLike() {
+    isLiked = !isLiked;
+    likes += isLiked ? 1 : -1;
+  }
 
   Comments({
     required this.id,
@@ -297,3 +302,8 @@ List<Comments> commentDataset = [
     hasStory: true,
   ),
 ];
+
+List<Comments> filterCommentsByPostId(String postId) {
+  List<Comments> filteredComments = commentDataset.where((comment) => comment.postId == postId).toList();
+  return filteredComments;
+}

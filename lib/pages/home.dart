@@ -99,110 +99,126 @@ class _HomeState extends State<Home> {
 
                       Expanded(
                         child: ListView.builder(
-                          itemCount: commentDataset.where((element) {
-                            return element.postId == postid;
-                          }).length,
+                          itemCount: filterCommentsByPostId(postid).length,
                           itemBuilder: (_, i) {
-                            final comment = commentDataset[i];
+                            final comment = filterCommentsByPostId(postid)[i];
+
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                              child: Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          CircleAvatar(backgroundImage: NetworkImage(comment.imageUrl)),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(backgroundImage: NetworkImage(comment.imageUrl)),
 
-                                          SizedBox(width: 10),
+                                  const SizedBox(width: 10),
 
-                                          Flexible(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              comment.username,
+                                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                            ),
+
+                                            const SizedBox(width: 2),
+
+                                            if (comment.isVerified) ...[
+                                              Container(
+                                                padding: EdgeInsets.all(2),
+                                                decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+                                                child: Icon(Icons.check, size: 6, color: Colors.black, weight: 10),
+                                              ),
+                                              const SizedBox(width: 2),
+                                            ],
+
+                                            Text(
+                                              comment.date,
+                                              style: TextStyle(
+                                                color: Colors.white.withOpacity(0.7),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                letterSpacing: 0.2,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
+                                        const SizedBox(height: 4),
+
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    comment.content,
+                                                    style: TextStyle(
+                                                      color: Colors.white.withOpacity(0.9),
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
+                                                  ),
+
+                                                  const SizedBox(height: 8),
+
+                                                  Text(
+                                                    'Reply',
+                                                    style: TextStyle(
+                                                      color: Colors.grey[400],
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.bold,
+                                                      letterSpacing: 0.2,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            const SizedBox(width: 10),
+
+                                            Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      comment.username,
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      comment.toggleLike();
+                                                    });
+                                                  },
+                                                  child: Icon(
+                                                    comment.isLiked ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                                                    size: 20,
+                                                    color: comment.isLiked ? Colors.red : Colors.white,
+                                                  ),
+                                                ),
+                                                if (comment.likes > 0) ...[
+                                                  Opacity(
+                                                    opacity: 0.7,
+                                                    child: Text(
+                                                      comment.likes.toString(),
                                                       style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-
-                                                    const SizedBox(width: 4),
-
-                                                    if (comment.isVerified) ...[
-                                                      Container(
-                                                        padding: EdgeInsets.all(2),
-                                                        decoration: BoxDecoration(
-                                                          color: Colors.blue,
-                                                          shape: BoxShape.circle,
-                                                        ),
-                                                        child: Icon(
-                                                          Icons.check,
-                                                          size: 6,
-                                                          color: Colors.black,
-                                                          weight: 10,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(width: 4),
-                                                    ],
-
-                                                    Text(
-                                                      comment.date,
-                                                      style: TextStyle(
-                                                        color: Colors.white.withOpacity(0.7),
                                                         fontSize: 12,
+                                                        color: Colors.white,
                                                         fontWeight: FontWeight.w500,
-                                                        letterSpacing: 0.2,
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-
-                                                const SizedBox(height: 5),
-
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Text(
-                                                        softWrap: true,
-                                                        overflow: TextOverflow.visible,
-                                                        comment.content,
-                                                        style: TextStyle(
-                                                          color: Colors.grey[300],
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-
-                                                    Column(
-                                                      children: [
-                                                        Icon(CupertinoIcons.heart, size: 17),
-                                                        if (comment.likes > 0) ...[
-                                                          Text(
-                                                            comment.likes.toString(),
-                                                            style: TextStyle(fontSize: 12),
-                                                          ),
-                                                        ],
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             );
                           },
@@ -327,14 +343,15 @@ class _HomeState extends State<Home> {
                                 },
 
                                 child: Container(
-                                  padding: EdgeInsets.all(3),
+                                  padding: EdgeInsets.all(2),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     gradient: !story.isWatched
-                                        ? LinearGradient(
-                                            colors: instagramGradient,
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
+                                        ? SweepGradient(
+                                            colors: [...instagramGradient, instagramGradient.first],
+                                            startAngle: 0.0,
+                                            endAngle: 6.28319,
+                                            transform: const GradientRotation(-0.8),
                                           )
                                         : null,
                                     color: story.isWatched ? Colors.grey[600] : Colors.orange,
@@ -353,7 +370,9 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                               ),
+
                               const SizedBox(height: 3),
+
                               Text(
                                 story.username.length > 15 ? "${story.username.substring(0, 12)}..." : story.username,
                                 maxLines: 1,
